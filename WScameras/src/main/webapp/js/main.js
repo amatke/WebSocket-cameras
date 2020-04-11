@@ -23,10 +23,28 @@
 	  /* handle the error */
 	});
 	
-	setInterval(drawCanvas, 100);
+	setInterval(main, 100);
+	
+	function main(){
+		drawCanvas();
+		readCanvas();
+	}
 	
 	function drawCanvas(){
 		context.drawImage(video, 0, 0, canvas.width, canvas.height);
+	}
+	
+	console.log(canvas.toDataURL('image/jpeg', 1));
+	 
+	function readCanvas(){
+		var canvasData = canvas.toDataURL('image/jpeg', 1);
+		var decodeAsstring = atob(canvas.split(',')[1]);
+		
+		var charArray = [];
+		
+		for(vari=0; i<decodeAsstring.length; i++){
+			charArray.push(decodeAsstring.charCodeAt(i));
+		}
 	}
 
 })();
