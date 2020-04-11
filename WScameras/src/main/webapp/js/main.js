@@ -8,6 +8,14 @@
 	var img = document.querySelector('img');
 	var context=canvas.getContext('2d');
 	
+	var url = "ws://localhost:8080/WScameras/wsServer";
+	var socket = new WebSocket(url);
+	
+	socket.onopen=onOpen;
+	function onOpen(event){
+		
+	};
+	
 	var constraints={
 			video:true,
 			audio:false,
@@ -38,13 +46,21 @@
 	 
 	function readCanvas(){
 		var canvasData = canvas.toDataURL('image/jpeg', 1);
-		var decodeAsstring = atob(canvas.split(',')[1]);
+		var decodeAsstring = atob(canvasData.split(',')[1]);
 		
 		var charArray = [];
 		
-		for(vari=0; i<decodeAsstring.length; i++){
+		for(var i=0; i<decodeAsstring.length; i++){
 			charArray.push(decodeAsstring.charCodeAt(i));
 		}
+		
+		socket.send(new Blob([new Uint8Array(charArray)],{
+			type:'image/jpeg'
+		}));
+		
+		socket.addEventListener('message', function(event){
+			img.src=window.URL.createObjectURL(event.data);
+		});
 	}
 
 })();
