@@ -1,7 +1,7 @@
 Live Webcam Video streaming with WebSocket
 
     Server       <---------------------            Client
-[Java-Websocket] --------------------->	[HTML5 and Javascript-Websocket]
+    [Java-Websocket] --------------------->	[HTML5 and Javascript-Websocket]
 
 
 Implementation:
